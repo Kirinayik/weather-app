@@ -8,7 +8,7 @@ const Card = () => {
   const { weather, date } = useAppSelector((state) => state.weather)
 
   return (
-    <div className={'card grow bg-gradient'}>
+    <div className={'card grow dark:bg-main-black'}>
       <div className="flex flex-col h-full">
         <CardLocation />
         <div

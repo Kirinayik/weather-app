@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import SearchButton from './SearchButton'
 import SearchLocationButton from './SearchLocationButton'
-import Snackbar from '../common/Snackbar'
-import { useAppDispatch, useAppSelector } from '../../store'
-import { getWeatherFetch } from '../../store/weather/weatherState'
+import Snackbar from '../../common/Snackbar'
+import {useAppDispatch, useAppSelector} from '../../../store'
+import {getWeatherFailure, getWeatherFetch,} from '../../../store/weather/weatherState'
 
 const Search = () => {
   const [errorInput, setErrorInput] = useState(false)
@@ -13,8 +13,12 @@ const Search = () => {
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInput(e.target.value)
   const handleSearch = async () => {
-    dispatch(getWeatherFetch(`q=${input}`))
-    setInput('')
+    if (input.trim().length > 0) {
+      dispatch(getWeatherFetch(`q=${input}`))
+      setInput('')
+    } else {
+      dispatch(getWeatherFailure(true))
+    }
   }
   const handleEnterPress = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -27,20 +31,21 @@ const Search = () => {
       setErrorInput(true)
       setTimeout(() => {
         setErrorInput(false)
+        dispatch(getWeatherFailure(false))
       }, 3000)
     }
   }, [isError])
 
   return (
     <>
-      <div className={'relative text-main-blue'}>
+      <div className={'dark:text-white relative text-main-blue'}>
         <label>
           <input
             placeholder={'Search...'}
             onKeyPress={handleEnterPress}
             onChange={handleInput}
             value={input}
-            className={'search'}
+            className={'search dark:bg-secondary-black'}
           />
         </label>
         <SearchButton handleSearch={handleSearch} />

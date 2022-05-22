@@ -1,6 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit'
 import weatherReducer from './weather/weatherState'
 import timeReducer from './time/timeState'
+import environmentsReducer from './environments/environmentsState'
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from './sagas'
@@ -11,6 +12,7 @@ export const store = configureStore({
   reducer: {
     weather: weatherReducer,
     time: timeReducer,
+    environments: environmentsReducer,
   },
   middleware: [saga],
 })

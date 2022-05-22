@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {useGeoLocation} from '../../../hooks/useGeoLocation'
 import {useAppDispatch} from '../../../store'
 import {getWeatherFetch} from '../../../store/weather/weatherState'
@@ -11,13 +11,13 @@ const SearchLocationButton = ({
   const dispatch = useAppDispatch()
   const { findGeoLocation, isAccepted } = useGeoLocation()
 
-  useEffect(() => {
-    dispatch(getWeatherFetch())
-    setInput('')
-  }, [isAccepted])
-
   const handleFindGeoLocation = async () => {
-    findGeoLocation()
+    if (isAccepted) {
+      findGeoLocation()
+    } else {
+      dispatch(getWeatherFetch())
+      setInput('')
+    }
   }
 
   return (

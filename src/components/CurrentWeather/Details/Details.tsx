@@ -5,7 +5,7 @@ const Details = () => {
   const { weather } = useAppSelector((state) => state.weather)
 
   return (
-    <div className={'card card-details bg-gradient'}>
+    <div className={'card card-details dark:bg-main-black'}>
       <div className="flex flex-col gap-[10px]">
         <div>
           Description:{' '}

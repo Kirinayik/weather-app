@@ -19,18 +19,24 @@ const DashboardWeather = () => {
   return (
     <div
       className={`${
-        isLoading && 'hidden'
-      } dashboard lg:flex flex-col gap-[30px] bg-[#F0F5FF] p-[30px] overflow-x-hidden`}
+        isLoading ? 'hidden' : ''
+      } dashboard dark:bg-secondary-black lg:flex flex-col gap-[30px] bg-[#F0F5FF] p-[30px] overflow-x-hidden`}
     >
       <div className={'flex justify-between items-start mb-[30px] lg:m-0'}>
-        <div className={'text-main-blue flex flex-col gap-[15px] font-bold'}>
+        <div
+          className={
+            'dark:text-white text-main-blue flex flex-col gap-[15px] font-bold'
+          }
+        >
           <h2 className={'text-6xl uppercase'}>{time}</h2>
-          <div className={'text-dark-blue font-semibold'}>
+          <div className={'dark:text-white text-dark-blue font-semibold'}>
             {date.day}, {date.number} {date.month}, {date.year}
           </div>
           <h3 className={'text-4xl'}>Good {timesOfDay}</h3>
         </div>
-        <ThemeMode />
+        <div className={'hidden md:block'}>
+          <ThemeMode />
+        </div>
       </div>
       <div className={'grow flex flex-col justify-between gap-[30px]'}>
         {!isLoading ? (

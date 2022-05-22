@@ -31,9 +31,9 @@ const DashboardCard = ({
 
   return (
     <div
-      className={`dashboard-card font-semibold ${
-        id === weather.id && 'dashboard-card--active'
-      }`}
+      className={`dashboard-card dark:text-white font-semibold ${
+        id === weather.id ? 'dashboard-card--active' : ''
+      } dark:bg-main-black`}
       onClick={handleSetWeather}
     >
       <div>

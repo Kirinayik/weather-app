@@ -34,48 +34,7 @@ body {
   width: 100%;
   padding: 30px;
   border-radius: 20px;
-}
-
-#snackbar {
-  color: red;
-  visibility: hidden;
-  width: 250px;
-  margin-left: -125px;
-  background-color: #fff;
-  text-align: center;
-  border-radius: 20px;
-  padding: 16px;
-  position: fixed;
-  z-index: 10000;
-  border: 1px solid red;
-  right: 30px;
-  bottom: -50px;
-  transition: all 0.3s ease-in-out;
-  opacity: 0;
-}
-
-#snackbar.snackbar-show {
-  visibility: visible;
-  bottom: 30px;
-  opacity: 1;
-}
-
-.bg-gradient {
   background: rgb(156, 189, 255);
-  background: linear-gradient(
-    150deg,
-    rgba(156, 189, 255, 1) 0%,
-    rgba(114, 161, 255, 1) 100%
-  );
-}
-
-.bg-gradient-orange {
-  background: rgb(255, 195, 125);
-  background: linear-gradient(
-    150deg,
-    rgba(255, 195, 125, 1) 0%,
-    rgba(255, 180, 95, 1) 40%
-  );
 }
 
 .theme-mode {
@@ -122,8 +81,36 @@ body {
   background: #72a1ff;
 }
 
+.dark .dashboard-card--active {
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+
 #spinner {
   min-height: calc(100vh - 65px - 60px);
+}
+
+#snackbar {
+  color: red;
+  visibility: hidden;
+  width: 250px;
+  margin-left: -125px;
+  background-color: #fff;
+  text-align: center;
+  border-radius: 20px;
+  padding: 16px;
+  position: fixed;
+  z-index: 10000;
+  border: 1px solid red;
+  right: 30px;
+  bottom: -50px;
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+}
+
+#snackbar.snackbar-show {
+  visibility: visible;
+  bottom: 30px;
+  opacity: 1;
 }
 
 @media (min-width: 990px) {
