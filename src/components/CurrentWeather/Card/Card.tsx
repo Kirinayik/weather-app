@@ -2,7 +2,7 @@ import React from 'react'
 import CardLocation from './CardLocation'
 import CardDetails from './CardDetails'
 import CardIcon from './CardIcon'
-import { useAppSelector } from '../../store'
+import {useAppSelector} from '../../../store'
 
 const Card = () => {
   const { weather, date } = useAppSelector((state) => state.weather)
@@ -16,9 +16,9 @@ const Card = () => {
             'grow flex flex-col items-center justify-center gap-y-[10px]'
           }
         >
-          <CardIcon />
+          <CardIcon icon={weather?.weather[0].icon} />
           <div>
-            Today,{' '}
+            {weather?.dt_txt ? weather.dt_txt : 'Today'},{' '}
             <span>
               {date.number} {date.month}
             </span>

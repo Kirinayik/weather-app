@@ -6,9 +6,23 @@ interface IWeatherSlice {
     day: string
     month: string
     number: number
+    year: number
   }
   weather: IWeather | null
-  forecast: IWeather[] | null
+  forecast: {
+    list: {
+      1: IWeather[]
+      2: IWeather[]
+      3: IWeather[]
+      4: IWeather[]
+      5: IWeather[]
+    }
+    city: {
+      name: string
+      country: string
+      id: number
+    }
+  } | null
   isLoading: boolean
   isError: boolean
 }
@@ -20,6 +34,7 @@ const weatherSlice = createSlice({
       day: '',
       number: 1,
       month: '',
+      year: 0,
     },
     weather: null,
     forecast: null,
@@ -38,38 +53,20 @@ const weatherSlice = createSlice({
       state.isError = false
     },
     getCurrentDate: (state) => {
-      const currentDate = new Date()
-      const days = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-      ]
-      const month = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-      ]
-
-      state.date.number = currentDate.getDate()
-      state.date.day = days[currentDate.getDay()]
-      state.date.month = month[currentDate.getMonth()]
+      const currentDate = new Date().toDateString().split(' ')
+      state.date = {
+        day: currentDate[0],
+        number: +currentDate[2],
+        month: currentDate[1],
+        year: +currentDate[3],
+      }
     },
-    getWeatherFailure: (state) => {
-      state.isError = true
+    getWeatherFailure: (state, action: PayloadAction<boolean>) => {
+      state.isError = action.payload
       state.isLoading = false
+    },
+    setCurrentWeather: (state, action: PayloadAction<IWeather>) => {
+      state.weather = action.payload
     },
   },
 })
@@ -79,5 +76,6 @@ export const {
   getWeatherSuccess,
   getCurrentDate,
   getWeatherFailure,
+  setCurrentWeather,
 } = weatherSlice.actions
 export default weatherSlice.reducer

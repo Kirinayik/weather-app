@@ -1,5 +1,5 @@
 import React from 'react'
-import {useAppSelector} from '../../store'
+import {useAppSelector} from '../../../store'
 
 const Details = () => {
   const { weather } = useAppSelector((state) => state.weather)

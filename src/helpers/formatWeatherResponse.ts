@@ -1,4 +1,5 @@
-import { IWeather } from '../types/types'
+import {IWeather} from '../types/types'
+import {nanoid} from '@reduxjs/toolkit'
 
 export const formatWeatherResponse = (data: any): IWeather => {
   const currentResult: IWeather = {
@@ -9,9 +10,7 @@ export const formatWeatherResponse = (data: any): IWeather => {
     wind: {
       speed: data.wind.speed,
     },
-    country: data.sys.country,
-    city: data.name,
-    id: data.id,
+    id: nanoid(),
     weather: [
       ...data.weather.filter(
         (el: {
@@ -34,6 +33,8 @@ export const formatWeatherResponse = (data: any): IWeather => {
   }
 
   if (!!data.dt_txt) currentResult.dt_txt = data.dt_txt
+  if (!!data.name) currentResult.city = data.name
+  if (!!data.sys.country) currentResult.country = data.sys.country
   if (!!data.rain) currentResult.rain = { '1h': data.rain['1h'] }
   if (!!data.snow) currentResult.snow = { '1h': data.snow['1h'] }
 

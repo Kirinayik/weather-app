@@ -1,7 +1,7 @@
 import React from 'react'
-import {useAppSelector} from '../../store'
-import windIcon from '../../img/wind.png'
-import humidityIcon from '../../img/humidity.png'
+import {useAppSelector} from '../../../store'
+import windIcon from '../../../img/wind.png'
+import humidityIcon from '../../../img/humidity.png'
 
 const CardDetails = () => {
   const { weather } = useAppSelector((state) => state.weather)
@@ -18,7 +18,12 @@ const CardDetails = () => {
         }
       >
         <div className={'flex items-center gap-[5px]'}>
-          <img src={windIcon} alt={''} className={'absolute top-0 left-0'} />
+          <img
+            draggable={false}
+            src={windIcon}
+            alt={''}
+            className={'absolute top-0 left-0'}
+          />
           <div>Wind</div>
         </div>
         <div className={'flex justify-end'}>{weather?.wind.speed} m/s</div>
@@ -30,6 +35,7 @@ const CardDetails = () => {
       >
         <div className={'flex items-center gap-[5px]'}>
           <img
+            draggable={false}
             src={humidityIcon}
             alt={''}
             className={'absolute top-0 left-0'}

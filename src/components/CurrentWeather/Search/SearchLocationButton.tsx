@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
-import { useGeoLocation } from '../../hooks/useGeoLocation'
-import { useAppDispatch } from '../../store'
-import { getWeatherFetch } from '../../store/weather/weatherState'
+import React, {useEffect} from 'react'
+import {useGeoLocation} from '../../../hooks/useGeoLocation'
+import {useAppDispatch} from '../../../store'
+import {getWeatherFetch} from '../../../store/weather/weatherState'
 
 const SearchLocationButton = ({
   setInput,

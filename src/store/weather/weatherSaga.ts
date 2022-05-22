@@ -20,9 +20,39 @@ async function fetchWeather(type: 'current' | 'forecast', params: string) {
         `forecast?${params}&units=metric&appid=${process.env.WEATHER_KEY}`
       )
 
-      return data.list.map((el: any) =>
-        formatWeatherResponse({ ...el, city: data.city })
+      const formatForecast = data.list.map((el: any) =>
+        formatWeatherResponse(el)
       )
+
+      const currentDayNumber = new Date().getDate()
+      const firstForecastList = formatForecast.filter(
+        (el: any) => currentDayNumber === +el.dt_txt.split(' ')[0].split('-')[2]
+      )
+      const resultForecast = {
+        '1': firstForecastList,
+        '2': formatForecast.slice(
+          firstForecastList.length,
+          firstForecastList.length + 8
+        ),
+        '3': formatForecast.slice(
+          firstForecastList.length + 8,
+          firstForecastList.length + 16
+        ),
+        '4': formatForecast.slice(
+          firstForecastList.length + 16,
+          firstForecastList.length + 24
+        ),
+        '5': formatForecast.slice(firstForecastList.length + 24),
+      }
+
+      return {
+        city: {
+          name: data.city.name,
+          country: data.city.country,
+          id: data.city.id,
+        },
+        list: resultForecast,
+      }
     }
   } catch (e) {
     if (axios.isAxiosError(e) && e.response) {
@@ -56,7 +86,7 @@ function* weatherSaga(action: PayloadAction<string | undefined>) {
     yield call(fetchWeather, 'current', params)
 
   if ('error' in currentWeather) {
-    yield put(getWeatherFailure())
+    yield put(getWeatherFailure(true))
   } else {
     const forecastWeather: Promise<IWeather | { error: IWeatherError }> =
       yield call(fetchWeather, 'forecast', params)
